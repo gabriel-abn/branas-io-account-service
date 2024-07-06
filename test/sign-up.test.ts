@@ -1,20 +1,16 @@
+import { faker } from "@faker-js/faker";
+import GetAccount from "src/application/services/get-account";
+import SignUp from "src/application/services/signup";
 import type { User } from "src/domain/user";
-import Postgres from "src/infra/database/postgres";
 import UserRepository from "src/infra/repositories/user-repository";
-import SignUp from "src/services/signup/signup";
 
 describe("SignUp", () => {
-  afterAll(async () => {
-    const database = Postgres.getInstance();
+  beforeAll(async () => {});
 
-    await database.query("delete from cccat17.account;", []);
-    await database.end();
-  });
-
-  test("Deve registrar um motorista", async function () {
+  test("Deve registrar um motorista", async () => {
     const user: User = {
       name: "Gabriel Nascimento",
-      email: "gabriel.ab.nascimento@gmail.com",
+      email: faker.internet.email(),
       accountId: "",
       carPlate: "ABC1234",
       cpf: "97456321558",
@@ -22,11 +18,18 @@ describe("SignUp", () => {
       isPassenger: false,
     };
 
-    const service = new SignUp(new UserRepository());
+    const userRepository = new UserRepository();
+    const signUpService = new SignUp(userRepository);
+    const response = await signUpService.execute(user);
 
-    const response = await service.execute(user);
-
-    console.log(response);
     expect(response).toHaveProperty("accountId");
+
+    const getAccountService = new GetAccount(userRepository);
+    const account = await getAccountService.execute({
+      accountId: response.accountId,
+    });
+
+    expect(account).toHaveProperty("accountId");
+    expect(account.email).toBe(user.email);
   });
 });

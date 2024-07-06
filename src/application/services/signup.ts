@@ -21,21 +21,24 @@ export default class SignUp {
     try {
       const id = crypto.randomUUID();
 
-      const acc = await this.userRepository.get(input.email);
+      const acc = await this.userRepository.get({ email: input.email });
 
-      if (acc) return -4;
+      if (acc) return "Email already in use.";
 
-      if (!validateName(input.name)) return -3;
-      if (!validateEmail(input.email)) return -2;
-      if (!validateCpf(input.cpf)) return -1;
-      if (!validateCarPlate(input.carPlate) && input.isDriver) return -5;
+      if (!validateName(input.name)) return "Invalid name.";
+      if (!validateEmail(input.email)) return "Invalid email.";
+      if (!validateCpf(input.cpf)) return "Invalid CPF.";
+      if (!validateCarPlate(input.carPlate) && input.isDriver)
+        return "Invalid car plate.";
 
       await this.userRepository.save({ ...input, accountId: id });
 
       return {
         accountId: id,
       };
-    } catch (error) {
+    } catch (error: any) {
+      console.log(error);
+
       return -6;
     }
   }

@@ -1,5 +1,5 @@
-import type { IUserRepository } from "src/services/protocols/user-repository";
-import type { User } from "../../domain/user";
+import type { IUserRepository } from "src/application/protocols/user-repository";
+import type { User } from "src/domain/user";
 import Postgres from "../database/postgres";
 
 export default class UserRepository implements IUserRepository {
@@ -23,14 +23,45 @@ export default class UserRepository implements IUserRepository {
     );
   }
 
-  async get(email: string): Promise<User> {
-    const [user] = await this.database.query(
-      `
-        select * from cccat17.account where email = $1
-      `,
-      [email],
-    );
+  async get(
+    filter: Partial<{ email: string; accountId: string }>,
+  ): Promise<User | null> {
+    try {
+      const { email, accountId } = filter;
+      let user: any;
 
-    return user;
+      if (email) {
+        [user] = await this.database.query(
+          `
+        select * from cccat17.account where email = $1;
+        `,
+          [email],
+        );
+      } else if (accountId) {
+        [user] = await this.database.query(
+          `
+        select *
+        from cccat17.account 
+        where account_id = $1;
+      `,
+          [accountId],
+        );
+      }
+
+      if (!user) return null;
+
+      return {
+        accountId: user.account_id,
+        name: user.name,
+        email: user.email,
+        cpf: user.cpf,
+        carPlate: user.car_plate,
+        isPassenger: user.is_passenger,
+        isDriver: user.is_driver,
+      };
+    } catch (error) {
+      console.log(error);
+      return null;
+    }
   }
 }
