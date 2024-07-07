@@ -1,4 +1,4 @@
-import validateName from "src/utils/validate-name";
+import { validateName } from "src/utils/user-data-validation";
 
 it.each(["João", "Maria", "José"])(
   "Deve retornar erro se apenas o primeiro nome for informado: %s",

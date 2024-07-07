@@ -1,8 +1,10 @@
 import crypto from "crypto";
-import validateName from "src/utils/validate-name";
-import validateCarPlate from "src/utils/validateCarPlate";
-import { validateCpf } from "src/utils/validateCpf";
-import validateEmail from "src/utils/validateEmail";
+import {
+  validateCarPlate,
+  validateCpf,
+  validateEmail,
+  validateName,
+} from "src/utils/user-data-validation";
 import type { IUserRepository } from "../protocols/user-repository";
 
 type Input = {

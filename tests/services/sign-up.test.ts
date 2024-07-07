@@ -1,7 +1,6 @@
 import { faker } from "@faker-js/faker";
-import SignUp from "src/application/services/signup";
+import RandExp from "randexp";
 import type { User } from "src/domain/user";
-import UserRepository from "src/infra/repositories/user-repository";
 import GetAccountFactory from "src/main/factories/get-account-factory";
 import SignUpFactory from "src/main/factories/sign-up-factory";
 
@@ -9,14 +8,12 @@ describe("SignUp", () => {
   const signUp = SignUpFactory.makeUseCase();
   const getAccount = GetAccountFactory.makeUseCase();
 
-  beforeAll(async () => {});
-
   it("Deve registrar um motorista", async () => {
     const user: User = {
-      name: "Gabriel Nascimento",
+      name: faker.person.fullName().replace("Ms. ", "").replace("Mr. ", ""),
       email: faker.internet.email(),
       accountId: "",
-      carPlate: "ABC1234",
+      carPlate: new RandExp(/[A-Z]{3}\d{4}/).gen(),
       cpf: "97456321558",
       isDriver: true,
       isPassenger: false,
@@ -45,10 +42,7 @@ describe("SignUp", () => {
       isPassenger: false,
     };
 
-    const userRepository = new UserRepository();
-    const signUpService = new SignUp(userRepository);
-
-    expect(async () => await signUpService.execute(user)).rejects.toThrow(
+    expect(async () => await signUp.execute(user)).rejects.toThrow(
       "Invalid CPF.",
     );
   });
@@ -80,10 +74,7 @@ describe("SignUp", () => {
       isPassenger: false,
     };
 
-    const userRepository = new UserRepository();
-    const signUpService = new SignUp(userRepository);
-
-    await expect(signUpService.execute(user)).rejects.toThrow("Invalid email.");
+    await expect(signUp.execute(user)).rejects.toThrow("Invalid email.");
   });
 
   it("Deve receber erro se nome for inválido", async () => {
