@@ -1,10 +1,14 @@
 import { faker } from "@faker-js/faker";
-import GetAccount from "src/application/services/get-account";
 import SignUp from "src/application/services/signup";
 import type { User } from "src/domain/user";
 import UserRepository from "src/infra/repositories/user-repository";
+import GetAccountFactory from "src/main/factories/get-account-factory";
+import SignUpFactory from "src/main/factories/sign-up-factory";
 
 describe("SignUp", () => {
+  const signUp = SignUpFactory.makeUseCase();
+  const getAccount = GetAccountFactory.makeUseCase();
+
   beforeAll(async () => {});
 
   it("Deve registrar um motorista", async () => {
@@ -18,14 +22,11 @@ describe("SignUp", () => {
       isPassenger: false,
     };
 
-    const userRepository = new UserRepository();
-    const signUpService = new SignUp(userRepository);
-    const response = await signUpService.execute(user);
+    const response = await signUp.execute(user);
 
     expect(response).toHaveProperty("accountId");
 
-    const getAccountService = new GetAccount(userRepository);
-    const account = await getAccountService.execute({
+    const account = await getAccount.execute({
       accountId: response.accountId,
     });
 
@@ -63,10 +64,7 @@ describe("SignUp", () => {
       isPassenger: false,
     };
 
-    const userRepository = new UserRepository();
-    const signUpService = new SignUp(userRepository);
-
-    expect(async () => await signUpService.execute(user)).rejects.toThrow(
+    expect(async () => await signUp.execute(user)).rejects.toThrow(
       "Invalid car plate.",
     );
   });
@@ -99,9 +97,6 @@ describe("SignUp", () => {
       isPassenger: false,
     };
 
-    const userRepository = new UserRepository();
-    const signUpService = new SignUp(userRepository);
-
-    await expect(signUpService.execute(user)).rejects.toThrow("Invalid name.");
+    await expect(signUp.execute(user)).rejects.toThrow("Invalid name.");
   });
 });
