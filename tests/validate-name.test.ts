@@ -16,7 +16,12 @@ it.each(["Gabriel Nascimento 123", "João Silva 123"])(
   },
 );
 
-it.each(["João Silva", "Maria Silva", "José Silva"])(
+it.each([
+  "João Silva",
+  "Maria Silva",
+  "José Silva Nascimento",
+  "Paulo Roberto dos Santos",
+])(
   "Deve retornar verdadeiro se nome completo for informado: %s",
   (name: string) => {
     const isValid = validateName(name);
