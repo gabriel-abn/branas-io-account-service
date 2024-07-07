@@ -1,6 +1,6 @@
 # Clean Code e Clean Architecture - Module 1
 
-Este conteúdo é parte do curso Clean Code e Clean Architecture da Branas.io
+Este conteúdo é parte do curso Clean Code e Clean Architecture da Branas.io. Este repositório é um fork do [repositório original](https://github.com/rodrigobranas/cccat17_1) do módulo 1 do curso.
 
 Utilizando as técnicas de refactoring que vimos na aula, refatore o código do UC1 - Signup, disponível em:
 <https://github.com/rodrigobranas/cccat17_1/blob/master/src/signup.ts>
