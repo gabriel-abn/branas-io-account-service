@@ -1,7 +1,7 @@
 export type HttpRequest<T = any> = {
   body: T;
-  query?: Record<string, any>;
-  params?: Record<string, any>;
+  query?: { [key: string]: any };
+  params?: { [key: string]: any };
 };
 
 export type HttpResponse = {
