@@ -1,13 +1,10 @@
 import { faker } from "@faker-js/faker";
 import RandExp from "randexp";
 import type { User } from "src/domain/user";
-import GetAccountFactory from "src/main/factories/get-account-factory";
-import SignUpFactory from "src/main/factories/sign-up-factory";
+import server from "src/main/app/app";
+import request from "supertest";
 
 describe("SignUp", () => {
-  const signUp = SignUpFactory.makeUseCase();
-  const getAccount = GetAccountFactory.makeUseCase();
-
   let user: User;
 
   beforeEach(() => {
@@ -30,33 +27,37 @@ describe("SignUp", () => {
   });
 
   it("Deve registrar um motorista", async () => {
-    const response = await signUp.execute(user);
+    const signUpResponse = await request(server)
+      .post("/api/v1/account/sign-up")
+      .send({ ...user });
 
-    expect(response).toHaveProperty("accountId");
+    expect(signUpResponse.body).toHaveProperty("accountId");
 
-    const account = await getAccount.execute({
-      accountId: response.accountId,
-    });
+    const getAccountResponse = await request(server).get(
+      `/api/v1/account/${signUpResponse.body.accountId}`,
+    );
 
-    expect(account).toHaveProperty("accountId");
-    expect(account.email).toBe(user.email);
+    expect(getAccountResponse.body).toHaveProperty("accountId");
+    expect(getAccountResponse.body.email).toBe(user.email);
   });
 
   it("Deve registrar um passageiro", async () => {
     user.isDriver = false;
     user.isPassenger = true;
 
-    const response = await signUp.execute(user);
+    const signUpResponse = await request(server)
+      .post("/api/v1/account/sign-up")
+      .send({ ...user });
 
-    expect(response).toHaveProperty("accountId");
+    expect(signUpResponse.body).toHaveProperty("accountId");
 
-    const account = await getAccount.execute({
-      accountId: response.accountId,
-    });
+    const getAccountResponse = await request(server).get(
+      `/api/v1/account/${signUpResponse.body.accountId}`,
+    );
 
-    expect(account).toHaveProperty("accountId");
-    expect(account.email).toBe(user.email);
-    expect(account.isDriver).toBe(false);
-    expect(account.isPassenger).toBe(true);
+    expect(getAccountResponse.body).toHaveProperty("accountId");
+    expect(getAccountResponse.body.email).toBe(user.email);
+    expect(getAccountResponse.body.isDriver).toBe(false);
+    expect(getAccountResponse.body.isPassenger).toBe(true);
   });
 });
