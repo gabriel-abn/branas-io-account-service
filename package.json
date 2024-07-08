@@ -16,8 +16,10 @@
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",
     "@types/node": "^20.14.10",
+    "@types/supertest": "^6.0.2",
     "prettier": "^3.3.2",
     "randexp": "^0.5.3",
+    "supertest": "^7.0.0",
     "typescript": "5.4.5",
     "vite-tsconfig-paths": "^4.3.2",
     "vitest": "1.6.0"
