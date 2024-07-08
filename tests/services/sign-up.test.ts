@@ -41,4 +41,22 @@ describe("SignUp", () => {
     expect(account).toHaveProperty("accountId");
     expect(account.email).toBe(user.email);
   });
+
+  it("Deve registrar um passageiro", async () => {
+    user.isDriver = false;
+    user.isPassenger = true;
+
+    const response = await signUp.execute(user);
+
+    expect(response).toHaveProperty("accountId");
+
+    const account = await getAccount.execute({
+      accountId: response.accountId,
+    });
+
+    expect(account).toHaveProperty("accountId");
+    expect(account.email).toBe(user.email);
+    expect(account.isDriver).toBe(false);
+    expect(account.isPassenger).toBe(true);
+  });
 });
