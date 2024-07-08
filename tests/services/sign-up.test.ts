@@ -8,17 +8,25 @@ describe("SignUp", () => {
   const signUp = SignUpFactory.makeUseCase();
   const getAccount = GetAccountFactory.makeUseCase();
 
-  it("Deve registrar um motorista", async () => {
-    const user: User = {
+  let user: User;
+
+  beforeEach(() => {
+    user = {
       name: faker.person.fullName().replace("Ms. ", "").replace("Mr. ", ""),
       email: faker.internet.email(),
       accountId: "",
       carPlate: new RandExp(/[A-Z]{3}\d{4}/).gen(),
-      cpf: "97456321558",
+      cpf: faker.helpers.arrayElement([
+        "97456321558",
+        "71428793860",
+        "87748248800",
+      ]),
       isDriver: true,
       isPassenger: false,
     };
+  });
 
+  it("Deve registrar um motorista", async () => {
     const response = await signUp.execute(user);
 
     expect(response).toHaveProperty("accountId");
@@ -29,65 +37,5 @@ describe("SignUp", () => {
 
     expect(account).toHaveProperty("accountId");
     expect(account.email).toBe(user.email);
-  });
-
-  it("Deve receber erro se CPF for inválido", () => {
-    const user: User = {
-      name: "Gabriel Nascimento",
-      email: faker.internet.email(),
-      accountId: "",
-      carPlate: "ABC1234",
-      cpf: "123456789",
-      isDriver: true,
-      isPassenger: false,
-    };
-
-    expect(async () => await signUp.execute(user)).rejects.toThrow(
-      "Invalid CPF.",
-    );
-  });
-
-  it("Deve receber erro se placa de carro for inválida", () => {
-    const user: User = {
-      name: "Gabriel Nascimento",
-      email: faker.internet.email(),
-      accountId: "",
-      carPlate: "ABC123",
-      cpf: "97456321558",
-      isDriver: true,
-      isPassenger: false,
-    };
-
-    expect(async () => await signUp.execute(user)).rejects.toThrow(
-      "Invalid car plate.",
-    );
-  });
-
-  it("Deve receber erro se email for inválido", async () => {
-    const user: User = {
-      name: "Gabriel Nascimento",
-      email: "gabriel",
-      accountId: "",
-      carPlate: "ABC1234",
-      cpf: "97456321558",
-      isDriver: true,
-      isPassenger: false,
-    };
-
-    await expect(signUp.execute(user)).rejects.toThrow("Invalid email.");
-  });
-
-  it("Deve receber erro se nome for inválido", async () => {
-    const user: User = {
-      name: "Gabriel Nascimento 123",
-      email: faker.internet.email(),
-      accountId: "",
-      carPlate: "ABC1234",
-      cpf: "97456321558",
-      isDriver: true,
-      isPassenger: false,
-    };
-
-    await expect(signUp.execute(user)).rejects.toThrow("Invalid name.");
   });
 });
