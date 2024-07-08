@@ -12,7 +12,10 @@ describe("SignUp", () => {
 
   beforeEach(() => {
     user = {
-      name: faker.person.fullName().replace("Ms. ", "").replace("Mr. ", ""),
+      name: faker.person
+        .fullName()
+        .replace(/(Ms.|Mr.|Dr.|Miss|Mister|Mrs.)+\s/, "")
+        .replace(/(Sr.|Jr.)/, ""),
       email: faker.internet.email(),
       accountId: "",
       carPlate: new RandExp(/[A-Z]{3}\d{4}/).gen(),
