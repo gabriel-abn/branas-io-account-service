@@ -1,4 +1,5 @@
 import crypto from "crypto";
+import ApplicationError from "../common/application-error";
 import type { IUserRepository } from "../protocols/user-repository";
 
 type Input = {
@@ -18,20 +19,16 @@ export default class SignUp {
   constructor(private readonly userRepository: IUserRepository) {}
 
   async execute(input: Input): Promise<Output> {
-    try {
-      const id = crypto.randomUUID();
+    const id = crypto.randomUUID();
 
-      const acc = await this.userRepository.get({ email: input.email });
+    const acc = await this.userRepository.get({ email: input.email });
 
-      if (acc) throw new Error("Email already in use.");
+    if (acc) throw new ApplicationError("Email already in use.");
 
-      await this.userRepository.save({ ...input, accountId: id });
+    await this.userRepository.save({ ...input, accountId: id });
 
-      return {
-        accountId: id,
-      };
-    } catch (error: any) {
-      throw new Error(error);
-    }
+    return {
+      accountId: id,
+    };
   }
 }

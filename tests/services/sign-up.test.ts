@@ -9,10 +9,7 @@ describe("SignUp", () => {
 
   beforeEach(() => {
     user = {
-      name: faker.person
-        .fullName()
-        .replace(/(Ms.|Mr.|Dr.|Miss|Mister|Mrs.)+\s/, "")
-        .replace(/(Sr.|Jr.)/, ""),
+      name: faker.person.fullName(),
       email: faker.internet.email(),
       accountId: "",
       carPlate: new RandExp(/[A-Z]{3}\d{4}/).gen(),
@@ -59,5 +56,18 @@ describe("SignUp", () => {
     expect(getAccountResponse.body.email).toBe(user.email);
     expect(getAccountResponse.body.isDriver).toBe(false);
     expect(getAccountResponse.body.isPassenger).toBe(true);
+  });
+
+  it("Deve retornar 400 se o email já estiver em uso", async () => {
+    await request(server)
+      .post("/api/v1/account/sign-up")
+      .send({ ...user });
+
+    const signUpResponse = await request(server)
+      .post("/api/v1/account/sign-up")
+      .send({ ...user });
+
+    expect(signUpResponse.status).toBe(400);
+    expect(signUpResponse.body).toHaveProperty("error");
   });
 });

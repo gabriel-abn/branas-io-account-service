@@ -3,9 +3,9 @@ import type { SafeParseError, z } from "zod";
 import type { HttpRequest, HttpResponse } from "./http";
 
 export default abstract class Controller<T> {
-  constructor(private readonly schema?: z.ZodSchema) {}
-
   abstract run(request: HttpRequest<T>): Promise<any>;
+
+  constructor(private readonly schema?: z.ZodSchema) {}
 
   async handle(request: HttpRequest<T>): Promise<HttpResponse> {
     try {
