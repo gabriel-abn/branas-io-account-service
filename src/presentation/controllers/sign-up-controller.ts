@@ -13,12 +13,9 @@ const schema = z.object({
         .replace(/(Ms. |Mr. |Dr. |Miss |Mister |Mrs. )/, "")
         .replace(/( Sr.| Jr.)/, "");
 
-      if (/^[a-zA-ZÀ-ÿ'-]+\s[a-zA-ZÀ-ÿ'-]+(\s[a-zA-ZÀ-ÿ'-]+){0,4}$/.test(name))
-        return true;
-
-      console.log(name);
-      console.log(value);
-      return false;
+      return /^[a-zA-ZÀ-ÿ'-]+\s[a-zA-ZÀ-ÿ'-]+(\s[a-zA-ZÀ-ÿ'-]+){0,4}$/.test(
+        name,
+      );
     },
     {
       message: "Invalid name.",
