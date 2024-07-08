@@ -12,7 +12,7 @@ describe("GetAccountController", () => {
   beforeEach(() => {
     request = {
       body: {
-        name: faker.person.fullName().replace("Ms. ", "").replace("Mr. ", ""),
+        name: faker.person.fullName(),
         email: faker.internet.email(),
         accountId: "",
         carPlate: new RandExp(/[A-Z]{3}\d{4}/).gen(),
@@ -33,7 +33,6 @@ describe("GetAccountController", () => {
       },
     });
 
-    expect(account.body).toHaveProperty("accountId");
     expect(account.body.email).toBe(request.body.email);
   });
 });

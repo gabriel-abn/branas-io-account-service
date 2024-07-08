@@ -5,12 +5,25 @@ import Controller from "../common/controller";
 import type { HttpRequest } from "../common/http";
 
 const schema = z.object({
-  name: z
-    .string()
-    .regex(
-      /^[a-zA-ZÀ-ÿ'-]+\s[a-zA-ZÀ-ÿ'-]+(\s[a-zA-ZÀ-ÿ'-]+){0,4}$/,
-      "Invalid name.",
-    ),
+  name: z.custom<string>(
+    (value) => {
+      if (typeof value !== "string") return false;
+
+      const name = value
+        .replace(/(Ms. |Mr. |Dr. |Miss |Mister |Mrs. )/, "")
+        .replace(/( Sr.| Jr.)/, "");
+
+      if (/^[a-zA-ZÀ-ÿ'-]+\s[a-zA-ZÀ-ÿ'-]+(\s[a-zA-ZÀ-ÿ'-]+){0,4}$/.test(name))
+        return true;
+
+      console.log(name);
+      console.log(value);
+      return false;
+    },
+    {
+      message: "Invalid name.",
+    },
+  ),
   email: z.string().email("Invalid email."),
   cpf: z.custom<string>(
     (value) => typeof value === "string" && validateCpf(value),

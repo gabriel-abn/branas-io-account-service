@@ -10,9 +10,7 @@ describe("SignUpController", () => {
 
   beforeEach(() => {
     user = {
-      name: faker.person
-        .fullName()
-        .replace(/(Ms. |Mr. |Dr. |Miss |Mister )/, ""),
+      name: faker.person.fullName(),
       email: faker.internet.email(),
       accountId: "",
       carPlate: new RandExp(/[A-Z]{3}\d{4}/).gen(),
