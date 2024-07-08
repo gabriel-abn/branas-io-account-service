@@ -1,52 +1,52 @@
 import type SignUp from "src/application/services/signup";
+import { validateCpf } from "src/utils/user-data-validation";
 import z from "zod";
+import Controller from "../common/controller";
 import type { HttpRequest } from "../common/http";
 
 const schema = z.object({
-  name: z.string(),
-  email: z.string().email(),
-  cpf: z.string().length(11),
-  carPlate: z.string().length(7),
+  name: z
+    .string()
+    .regex(
+      /^[a-zA-ZÀ-ÿ'-]+\s[a-zA-ZÀ-ÿ'-]+(\s[a-zA-ZÀ-ÿ'-]+){0,4}$/,
+      "Invalid name.",
+    ),
+  email: z.string().email("Invalid email."),
+  cpf: z.custom<string>(
+    (value) => typeof value === "string" && validateCpf(value),
+    {
+      message: "Invalid CPF.",
+    },
+  ),
+  carPlate: z
+    .string()
+    .regex(/[A-Z]{3}[0-9]{4}/, {
+      message: "Invalid car plate.",
+    })
+    .optional(),
   isPassenger: z.boolean(),
   isDriver: z.boolean(),
 });
 
 export type SignUpRequest = z.infer<typeof schema>;
 
-export default class SignUpController {
-  constructor(private readonly signUp: SignUp) {}
+export default class SignUpController extends Controller<SignUpRequest> {
+  constructor(private readonly signUp: SignUp) {
+    super(schema);
+  }
 
-  async handle(request: HttpRequest<SignUpRequest>): Promise<void> {
-    try {
-      const { name, email, cpf, carPlate, isPassenger, isDriver } =
-        request.body;
+  async run(request: HttpRequest<SignUpRequest>): Promise<any> {
+    const { name, email, cpf, carPlate, isPassenger, isDriver } = request.body;
 
-      const result = await this.signUp.execute({
-        name,
-        email,
-        cpf,
-        carPlate,
-        isPassenger,
-        isDriver,
-      });
+    const result = await this.signUp.execute({
+      name,
+      email,
+      cpf,
+      isPassenger,
+      isDriver,
+      carPlate: carPlate ? carPlate : "",
+    });
 
-      if (result === -1) {
-        res.status(400).json({ error: "Invalid CPF" });
-      } else if (result === -2) {
-        res.status(400).json({ error: "Invalid email" });
-      } else if (result === -3) {
-        res.status(400).json({ error: "Invalid name" });
-      } else if (result === -4) {
-        res.status(400).json({ error: "Email already in use" });
-      } else if (result === -5) {
-        res.status(400).json({ error: "Invalid car plate" });
-      } else if (result === -6) {
-        res.status(500).json({ error: "Internal server error" });
-      } else {
-        res.status(201).json(result);
-      }
-    } catch (error) {
-      res.status(500).json({ error: "Internal server error" });
-    }
+    return result;
   }
 }
