@@ -1,10 +1,4 @@
 import crypto from "crypto";
-import {
-  validateCarPlate,
-  validateCpf,
-  validateEmail,
-  validateName,
-} from "src/utils/user-data-validation";
 import type { IUserRepository } from "../protocols/user-repository";
 
 type Input = {
@@ -31,9 +25,6 @@ export default class SignUp {
 
       if (acc) throw new Error("Email already in use.");
 
-      const validation = this.validateData({ ...input });
-      if (validation) throw new Error(validation);
-
       await this.userRepository.save({ ...input, accountId: id });
 
       return {
@@ -42,17 +33,5 @@ export default class SignUp {
     } catch (error: any) {
       throw new Error(error);
     }
-  }
-
-  private validateData(input: {
-    name: string;
-    email: string;
-    cpf: string;
-    carPlate: string;
-  }) {
-    if (!validateName(input.name)) return "Invalid name.";
-    if (!validateEmail(input.email)) return "Invalid email.";
-    if (!validateCpf(input.cpf)) return "Invalid CPF.";
-    if (!validateCarPlate(input.carPlate)) return "Invalid car plate.";
   }
 }
