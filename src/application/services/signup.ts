@@ -23,7 +23,8 @@ export default class SignUp {
 
     const acc = await this.userRepository.get({ email: input.email });
 
-    if (acc) throw new ApplicationError("Email already in use.");
+    if (acc)
+      throw new ApplicationError("Email already in use.", "EMAIL_IN_USE");
 
     await this.userRepository.save({ ...input, accountId: id });
 
