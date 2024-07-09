@@ -27,8 +27,8 @@ export default abstract class Controller<T> {
       const response = await this.run(request);
 
       if (
-        ["body", "status", "success"].every(
-          (key) => key in Object.keys(response),
+        ["body", "status", "success"].every((field) =>
+          response.hasOwnProperty(field),
         )
       ) {
         return response;
