@@ -68,6 +68,6 @@ describe("SignUp", () => {
       .send({ ...user });
 
     expect(signUpResponse.status).toBe(400);
-    expect(signUpResponse.body).toHaveProperty("error");
+    expect(signUpResponse.body).toHaveProperty("error", "EMAIL_IN_USE");
   });
 });
