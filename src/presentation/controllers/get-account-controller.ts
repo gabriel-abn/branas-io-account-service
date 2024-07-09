@@ -8,10 +8,25 @@ export default class GetAccountController extends Controller<any> {
   }
 
   async run(request: HttpRequest<null>): Promise<any> {
-    const { accountId } = request.params ?? {};
+    try {
+      const { accountId } = request.params ?? {};
 
-    const result = await this.getAccount.execute({ accountId });
+      const result = await this.getAccount.execute({ accountId });
 
-    return result;
+      return result;
+    } catch (error: any) {
+      if (error.name == "ACCOUNT_NOT_FOUND") {
+        return {
+          status: 404,
+          body: {
+            error: "ACCOUNT_NOT_FOUND",
+            message: "Account not found.",
+          },
+          success: false,
+        };
+      }
+
+      throw error;
+    }
   }
 }
