@@ -1,11 +1,12 @@
 import ApplicationError from "../common/application-error";
+import type UseCase from "../common/use-case";
 import type { IUserRepository } from "../protocols/user-repository";
 
 type Input = {
   accountId: string;
 };
 
-export default class GetAccount {
+export default class GetAccount implements UseCase<Input, any> {
   constructor(private readonly userRepository: IUserRepository) {}
 
   async execute(input: Input): Promise<any> {
