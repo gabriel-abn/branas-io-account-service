@@ -1,11 +1,13 @@
-# Clean Code e Clean Architecture - Module 1
+# Clean Code e Clean Architecture - Branas.io
 
-Este conteúdo é parte do curso Clean Code e Clean Architecture da Branas.io. Este repositório é um fork do [repositório original](https://github.com/rodrigobranas/cccat17_1) do módulo 1 do curso.
+Este conteúdo é parte do curso Clean Code e Clean Architecture da Branas.io. Este repositório é um fork do [repositório original](https://github.com/rodrigobranas/cccat17_1) do curso, sendo aprimorado e refatorado a cada módulo.
+
+## Módulo 1 - Clean Code | Refactoring | TDD
 
 Utilizando as técnicas de refactoring que vimos na aula, refatore o código do UC1 - Signup, disponível em:
 <https://github.com/rodrigobranas/cccat17_1/blob/master/src/signup.ts>
 
-## UC1 - Signup
+### UC1 - Signup
 
 Ator: Passageiro, Motorista
 Input: name, email, cpf, carPlate, password, isPassenger, isDriver
@@ -18,7 +20,7 @@ Output: account_id
 
 Para testar adequadamente o UC1 será necessário criar o UC2 - GetAccount.
 
-## UC2 - GetAccount
+### UC2 - GetAccount
 
 Input: account_id
 Output: todas as informações da conta
@@ -28,6 +30,103 @@ Observações:
 Crie uma API REST para interagir com os use cases criados por meio do protocolo HTTP e não se esqueça de também criar testes para a API.
 O modelo de dados está disponível em <https://github.com/rodrigobranas/cccat17_1/blob/master/create.sql>
 
-Para mais informações acesse:
+## Módulo 2 - Hexagonal Architecture | Tests Patterns (Tests Doubles)
 
-[Branas.io](https://branas.io/)
+### UC3 - Solicitar corrida
+
+Ator: Passageiro
+Input: passenger_id (account_id), from (lat, long), to (lat, long)
+Output: ride_id
+
+#### Regras
+
+* deve verificar se o account_id tem is_passenger true
+* deve verificar se já não existe uma corrida do passageiro em status diferente de "completed", se existir lançar um erro
+* deve gerar o ride_id (uuid)
+* deve definir o status como "requested"
+* deve definir date com a data atual
+
+### UC4 - GetRide
+
+Input: ride_id
+Output: todos as informações da ride juntamente com os dados do passageiro e do motorista (inicialmente null, definido após o use case de AcceptRide)
+
+Considere o modelo de dados:
+
+```sql
+create table cccat16.ride (
+  ride_id uuid,
+  passenger_id uuid,
+  driver_id uuid,
+  status text,
+  fare numeric,
+  distance numeric,
+  from_lat numeric,
+  from_long numeric,
+  to_lat numeric,
+  to_long numeric,
+  date timestamp
+);
+```
+
+## Módulo 3 - Clean Architecture
+
+### UC5 - AcceptRide
+
+**Ator**: Motorista
+**Input**: ride_id, driver_id (account_id)
+**Output**: void
+
+#### Regras
+
+* deve verificar se o account_id tem is_driver true
+* deve verificar se o status da corrida é "requested", se não for, lançar um erro
+* deve verificar se o motorista já tem outra corrida com status "accepted" ou "in_progress", se tiver lançar um erro
+* deve associar o driver_id na corrida
+* deve mudar o status para "accepted"
+
+### UC6 - StartRide
+
+Ator: Motorista
+Input: ride_id
+Output: void
+
+#### Regras
+
+* Deve verificar se a corrida está em status "accepted", se não estiver lançar um erro
+* Deve modificar o status da corrida para "in_progress"
+
+### UC7 - UpdatePosition
+
+Ator: Sistema
+Input: ride_id, lat, long
+Output: void
+
+* Deve verificar se a corrida está em status "in_progress", se não estiver lançar um erro
+* Deve gerar o position_id
+* Deve salvar na tabela position: position_id, ride_id, lat, long e date
+
+Considere o modelo de dados:
+
+```sql
+create table cccat17.position (
+  position_id uuid,
+  ride_id uuid,
+  lat numeric,
+  long numeric,
+  date timestamp
+);
+```
+
+## Módulo 4 - Transaction Script x Domain Model | Domain-Driven Design (Tactical Design)
+
+## Módulo 5 - Domain-Driven Design (Strategic Design) | Microservices | SOLID p.1
+
+## Módulo 6 - SOLID p.2 | Event-Driven Architecture | Mediator & Observer Patterns
+
+## Módulo 7 - ORM + Repository | ACL + Gateway | CQRS
+
+## Módulo 8 - Front-end w/ TDD, Clean Architecture & Design Patterns
+
+---
+Para mais informações acesse: <https://branas.io/>
