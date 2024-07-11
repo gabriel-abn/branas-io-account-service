@@ -1,8 +1,9 @@
+<!-- markdownlint-disable MD024 -->
 # Clean Code e Clean Architecture - Branas.io
 
 Este conteúdo é parte do curso Clean Code e Clean Architecture da Branas.io. Este repositório é um fork do [repositório original](https://github.com/rodrigobranas/cccat17_1) do curso, sendo aprimorado e refatorado a cada módulo.
 
-## Módulo 1 - Clean Code | Refactoring | TDD
+## Módulo 1 - Clean Code | Refactoring | TDD - ✅
 
 Utilizando as técnicas de refactoring que vimos na aula, refatore o código do UC1 - Signup, disponível em:
 <https://github.com/rodrigobranas/cccat17_1/blob/master/src/signup.ts>
@@ -30,7 +31,7 @@ Observações:
 Crie uma API REST para interagir com os use cases criados por meio do protocolo HTTP e não se esqueça de também criar testes para a API.
 O modelo de dados está disponível em <https://github.com/rodrigobranas/cccat17_1/blob/master/create.sql>
 
-## Módulo 2 - Hexagonal Architecture | Tests Patterns (Tests Doubles)
+## Módulo 2 - Hexagonal Architecture | Tests Patterns (Tests Doubles) - ❌
 
 ### UC3 - Solicitar corrida
 
@@ -69,7 +70,7 @@ create table cccat16.ride (
 );
 ```
 
-## Módulo 3 - Clean Architecture
+## Módulo 3 - Clean Architecture - ❌
 
 ### UC5 - AcceptRide
 
@@ -118,15 +119,39 @@ create table cccat17.position (
 );
 ```
 
-## Módulo 4 - Transaction Script x Domain Model | Domain-Driven Design (Tactical Design)
+## Módulo 4 - Transaction Script x Domain Model | Domain-Driven Design (Tactical Design) - ❌
 
-## Módulo 5 - Domain-Driven Design (Strategic Design) | Microservices | SOLID p.1
+### UC8 - FinishRide
 
-## Módulo 6 - SOLID p.2 | Event-Driven Architecture | Mediator & Observer Patterns
+Ator: Motorista
+Input: ride_id
+Output: void
 
-## Módulo 7 - ORM + Repository | ACL + Gateway | CQRS
+#### Regras
 
-## Módulo 8 - Front-end w/ TDD, Clean Architecture & Design Patterns
+* Deve verificar se a corrida está em status "in_progress", se não estiver lançar um erro
+* Deve obter todas as positions e calcular a distância entre cada uma delas, para isso utilize um algoritmo que receba duas coordenadas (lat, long) e retorne a distância entre elas em km.
+* Com a distância total calculada, calcule o valor da corrida (fare) multiplicando a distância por 2,1
+* Atualizar a corrida com o status "completed", a distância e o valor da corrida (fare)
+
+### UC9 - ProcessPayment
+
+Ator: Sistema
+Input: rideId, creditCardToken, amount
+Output: void
+
+#### Regras
+
+* Deve simular o comportamento de um gateway de pagamento, sendo chamado a partir do use case FinishRide e fazendo o processamento do pagamento com base no cartão de crédito do passageiro
+* O status deve ser sempre success
+
+## Módulo 5 - Domain-Driven Design (Strategic Design) | Microservices | SOLID p.1 - ⌛
+
+## Módulo 6 - SOLID p.2 | Event-Driven Architecture | Mediator & Observer Patterns - ⌛
+
+## Módulo 7 - ORM + Repository | ACL + Gateway | CQRS - ⌛
+
+## Módulo 8 - Front-end w/ TDD, Clean Architecture & Design Patterns - ⌛
 
 ---
 Para mais informações acesse: <https://branas.io/>
