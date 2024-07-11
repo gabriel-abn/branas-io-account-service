@@ -1,12 +1,12 @@
 import { faker } from "@faker-js/faker";
 import RandExp from "randexp";
-import type { User } from "src/domain/user";
+import type { AccountProps } from "src/domain/account";
 import SignUpFactory from "src/main/factories/sign-up-factory";
 
 describe("SignUpController", () => {
   const signUp = SignUpFactory.makeController();
 
-  let user: User;
+  let user: AccountProps;
 
   beforeEach(() => {
     user = {
