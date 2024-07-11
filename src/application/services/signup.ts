@@ -1,7 +1,8 @@
 import crypto from "crypto";
+import { Account } from "src/domain/account";
 import ApplicationError from "../common/application-error";
 import type UseCase from "../common/use-case";
-import type { IUserRepository } from "../protocols/user-repository";
+import type { IAccountRepository } from "../protocols/account-repository";
 
 type Input = {
   name: string;
@@ -17,17 +18,19 @@ type Output = {
 };
 
 export default class SignUp implements UseCase<Input, Output> {
-  constructor(private readonly userRepository: IUserRepository) {}
+  constructor(private readonly userRepository: IAccountRepository) {}
 
   async execute(input: Input): Promise<Output> {
     const id = crypto.randomUUID();
 
-    const acc = await this.userRepository.get({ email: input.email });
+    const exists = await this.userRepository.get({ email: input.email });
 
-    if (acc)
+    if (exists)
       throw new ApplicationError("Email already in use.", "EMAIL_IN_USE");
 
-    await this.userRepository.save({ ...input, accountId: id });
+    const account = Account.create({ ...input, accountId: id });
+
+    await this.userRepository.save(account);
 
     return {
       accountId: id,
