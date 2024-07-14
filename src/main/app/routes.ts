@@ -1,5 +1,6 @@
 import express from "express";
 import GetAccountFactory from "../factories/get-account-factory";
+import LoginFactory from "../factories/login-factory";
 import SignUpFactory from "../factories/sign-up-factory";
 import expressRouteAdapter from "../middlewares/express-route-adapter";
 
@@ -13,6 +14,11 @@ accountRouter.post(
 accountRouter.get(
   "/:accountId",
   expressRouteAdapter(GetAccountFactory.makeController()),
+);
+
+accountRouter.post(
+  "/login",
+  expressRouteAdapter(LoginFactory.makeController()),
 );
 
 export default accountRouter;
