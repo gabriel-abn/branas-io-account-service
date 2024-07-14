@@ -1,5 +1,5 @@
 import { pbkdf2 } from "crypto";
-import type IPasswordHasher from "src/application/protocols/hasher";
+import type { IPasswordHasher } from "src/application/protocols/hasher";
 
 export default class PasswordHasher implements IPasswordHasher {
   private readonly iterations: number;
