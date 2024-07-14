@@ -8,7 +8,7 @@ export default class UserRepository implements IAccountRepository {
   async save(account: Account): Promise<void> {
     await this.database.query(
       `
-        insert into cccat17.account (account_id, name, email, cpf, car_plate, is_passenger, is_driver)
+        insert into app.account (account_id, name, email, cpf, car_plate, is_passenger, is_driver)
         values ($1, $2, $3, $4, $5, $6, $7)
       `,
       [
@@ -33,7 +33,7 @@ export default class UserRepository implements IAccountRepository {
       if (email) {
         [user] = await this.database.query(
           `
-        select * from cccat17.account where email = $1;
+        select * from app.account where email = $1;
         `,
           [email],
         );
@@ -41,7 +41,7 @@ export default class UserRepository implements IAccountRepository {
         [user] = await this.database.query(
           `
         select *
-        from cccat17.account 
+        from app.account 
         where account_id = $1;
       `,
           [accountId],

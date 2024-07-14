@@ -1,5 +1,5 @@
 import SignUp from "src/application/services/signup";
-import UserRepository from "src/infra/repositories/user-repository";
+import UserRepository from "src/infra/repositories/account-repository";
 import SignUpController from "src/presentation/controllers/sign-up-controller";
 
 export default class SignUpFactory {

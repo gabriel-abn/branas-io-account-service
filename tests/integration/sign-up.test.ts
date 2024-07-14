@@ -1,11 +1,18 @@
 import { faker } from "@faker-js/faker";
 import RandExp from "randexp";
-import type { Account } from "src/domain/user";
 import server from "src/main/app/app";
 import request from "supertest";
 
 describe("SignUp", () => {
-  let user: Account;
+  let user: {
+    name: string;
+    email: string;
+    accountId: string;
+    carPlate: string;
+    cpf: string;
+    isDriver: boolean;
+    isPassenger: boolean;
+  };
 
   beforeEach(() => {
     user = {

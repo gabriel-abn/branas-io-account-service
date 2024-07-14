@@ -1,5 +1,5 @@
 import GetAccount from "src/application/services/get-account";
-import UserRepository from "src/infra/repositories/user-repository";
+import UserRepository from "src/infra/repositories/account-repository";
 import GetAccountController from "src/presentation/controllers/get-account-controller";
 
 export default class GetAccountFactory {
