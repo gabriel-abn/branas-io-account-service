@@ -12,6 +12,7 @@ describe("SignUpController", () => {
     user = {
       name: faker.person.fullName(),
       email: faker.internet.email(),
+      password: "Password123!@",
       accountId: "",
       carPlate: new RandExp(/[A-Z]{3}\d{4}/).gen(),
       cpf: faker.helpers.arrayElement([
