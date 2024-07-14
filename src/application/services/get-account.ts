@@ -1,6 +1,6 @@
 import ApplicationError from "../common/application-error";
 import type UseCase from "../common/use-case";
-import type { IAccountRepository } from "../protocols/account-repository";
+import type { IAccountRepository } from "../protocols";
 
 type Input = {
   accountId: string;
