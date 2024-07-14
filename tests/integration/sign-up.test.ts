@@ -7,6 +7,7 @@ describe("SignUp", () => {
   let user: {
     name: string;
     email: string;
+    password: string;
     accountId: string;
     carPlate: string;
     cpf: string;
@@ -18,6 +19,7 @@ describe("SignUp", () => {
     user = {
       name: faker.person.fullName(),
       email: faker.internet.email(),
+      password: "Password123!@",
       accountId: "",
       carPlate: new RandExp(/[A-Z]{3}\d{4}/).gen(),
       cpf: faker.helpers.arrayElement([
@@ -77,4 +79,6 @@ describe("SignUp", () => {
     expect(signUpResponse.status).toBe(400);
     expect(signUpResponse.body).toHaveProperty("error", "EMAIL_IN_USE");
   });
+
+  it("Deve retornar 400 se o CPF já estiver em uso");
 });

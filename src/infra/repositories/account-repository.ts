@@ -8,13 +8,14 @@ export default class UserRepository implements IAccountRepository {
   async save(account: Account): Promise<void> {
     await this.database.query(
       `
-        insert into app.account (account_id, name, email, cpf, car_plate, is_passenger, is_driver)
-        values ($1, $2, $3, $4, $5, $6, $7)
+        insert into app.account (account_id, name, email, password, cpf, car_plate, is_passenger, is_driver)
+        values ($1, $2, $3, $4, $5, $6, $7, $8);
       `,
       [
         account.props.accountId,
         account.props.name,
         account.props.email,
+        account.props.password,
         account.props.cpf,
         account.props.carPlate,
         !!account.props.isPassenger,
@@ -54,6 +55,7 @@ export default class UserRepository implements IAccountRepository {
         accountId: user.account_id,
         name: user.name,
         email: user.email,
+        password: user.password,
         cpf: user.cpf,
         carPlate: user.car_plate,
         isPassenger: user.is_passenger,

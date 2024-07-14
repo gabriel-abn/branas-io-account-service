@@ -22,6 +22,17 @@ const schema = z.object({
     },
   ),
   email: z.string().email("Invalid email."),
+  password: z
+    .string()
+    .regex(/(?=.*[a-z])/, "Password must have at least one lowercase letter.")
+    .regex(/(?=.*[A-Z])/, "Password must have at least one uppercase letter.")
+    .regex(/(?=.*\d)/, "Password must have at least one number.")
+    .regex(
+      /(?=.*[!@#$%^&*()])/,
+      "Password must have at least one special character.",
+    )
+    .min(8, "Password must have at least 8 characters.")
+    .max(24, "Password must have at most 24 characters."),
   cpf: z.custom<string>(
     (value) => typeof value === "string" && validateCpf(value),
     {
@@ -46,11 +57,13 @@ export default class SignUpController extends Controller<SignUpRequest> {
   }
 
   async run(request: HttpRequest<SignUpRequest>): Promise<any> {
-    const { name, email, cpf, carPlate, isPassenger, isDriver } = request.body;
+    const { name, email, password, cpf, carPlate, isPassenger, isDriver } =
+      request.body;
 
     const result = await this.signUp.execute({
       name,
       email,
+      password,
       cpf,
       isPassenger,
       isDriver,

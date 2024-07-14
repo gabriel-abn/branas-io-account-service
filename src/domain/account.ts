@@ -2,6 +2,7 @@ export type AccountProps = {
   accountId: string;
   name: string;
   email: string;
+  password: string;
   cpf: string;
   carPlate: string;
   isPassenger: boolean;
