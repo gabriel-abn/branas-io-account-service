@@ -3,7 +3,7 @@
 
 Este conteúdo é parte do curso Clean Code e Clean Architecture da Branas.io. Este repositório é um fork do [repositório original](https://github.com/rodrigobranas/cccat17_1) do curso, sendo aprimorado e refatorado a cada módulo.
 
-## Módulo 1 - Clean Code | Refactoring | TDD - ✅
+## [Módulo 1](https://github.com/rodrigobranas/cccat17_1) - Clean Code | Refactoring | TDD - ✅
 
 Utilizando as técnicas de refactoring que vimos na aula, refatore o código do UC1 - Signup, disponível em:
 <https://github.com/rodrigobranas/cccat17_1/blob/master/src/signup.ts>
@@ -31,7 +31,7 @@ Observações:
 Crie uma API REST para interagir com os use cases criados por meio do protocolo HTTP e não se esqueça de também criar testes para a API.
 O modelo de dados está disponível em <https://github.com/rodrigobranas/cccat17_1/blob/master/create.sql>
 
-## Módulo 2 - Hexagonal Architecture | Tests Patterns (Tests Doubles) - ❌
+## [Módulo 2](https://github.com/rodrigobranas/cccat17_2) - Hexagonal Architecture | Tests Patterns (Tests Doubles) - ❌
 
 ### UC3 - Solicitar corrida
 
@@ -70,7 +70,7 @@ create table cccat16.ride (
 );
 ```
 
-## Módulo 3 - Clean Architecture - ❌
+## [Módulo 3](https://github.com/rodrigobranas/cccat17_3) - Clean Architecture - ❌
 
 ### UC5 - AcceptRide
 
@@ -119,7 +119,7 @@ create table cccat17.position (
 );
 ```
 
-## Módulo 4 - Transaction Script x Domain Model | Domain-Driven Design (Tactical Design) - ❌
+## [Módulo 4](https://github.com/rodrigobranas/cccat17_4) - Transaction Script x Domain Model | Domain-Driven Design (Tactical Design) - ❌
 
 ### UC8 - FinishRide
 
@@ -145,7 +145,7 @@ Output: void
 * Deve simular o comportamento de um gateway de pagamento, sendo chamado a partir do use case FinishRide e fazendo o processamento do pagamento com base no cartão de crédito do passageiro
 * O status deve ser sempre success
 
-## Módulo 5 - Domain-Driven Design (Strategic Design) | Microservices | SOLID p.1 - ❌
+## [Módulo 5](https://github.com/rodrigobranas/cccat17_5) - Domain-Driven Design (Strategic Design) | Microservices | SOLID p.1 - ❌
 
 ### UC7 - ProcessPayment
 
@@ -177,7 +177,7 @@ Chegou a hora de aplicar a modelagem estratégica e separar o domínio em 3 boun
 
 Copie o projeto em backend/ride em backend/ride, backend/account e backend/payment, fazendo com que a relação entre eles aconteça por meio de requisições HTTP.
 
-## Módulo 6 - SOLID p.2 | Event-Driven Architecture - ❌
+## [Módulo 6](https://github.com/rodrigobranas/cccat17_6) - SOLID p.2 | Event-Driven Architecture - ❌
 
 ## Módulo 7 - ORM + Repository | ACL + Gateway | CQRS | Mediator & Observer Patterns - ⌛
 
