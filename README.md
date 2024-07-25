@@ -145,11 +145,41 @@ Output: void
 * Deve simular o comportamento de um gateway de pagamento, sendo chamado a partir do use case FinishRide e fazendo o processamento do pagamento com base no cartão de crédito do passageiro
 * O status deve ser sempre success
 
-## Módulo 5 - Domain-Driven Design (Strategic Design) | Microservices | SOLID p.1 - ⌛
+## Módulo 5 - Domain-Driven Design (Strategic Design) | Microservices | SOLID p.1 - ❌
 
-## Módulo 6 - SOLID p.2 | Event-Driven Architecture | Mediator & Observer Patterns - ⌛
+### UC7 - ProcessPayment
 
-## Módulo 7 - ORM + Repository | ACL + Gateway | CQRS - ⌛
+Ator: Sistema
+Input: rideId, amount
+Output: void
+
+#### Regras
+
+* Deve simular o comportamento de um gateway de pagamento, sendo chamado a partir do use case FinishRide e fazendo o processamento do pagamento com base no cartão de crédito do passageiro
+* O status deve ser sempre success
+* Deve persistir na tabela transaction
+
+Considere o modelo de dados:
+
+```sql
+create table cccat16.transaction (
+  transaction_id uuid primary key,
+  ride_id uuid,
+  amount numeric,
+  date timestamp,
+  status text
+);
+```
+
+Considere separar 3 microservices: *account*, *ride* e *payment* e faça a integração entre eles utilizando o protocolo HTTP
+
+Chegou a hora de aplicar a modelagem estratégica e separar o domínio em 3 bounded contexts diferentes: **Ride**, **Account** e **Payment**.
+
+Copie o projeto em backend/ride em backend/ride, backend/account e backend/payment, fazendo com que a relação entre eles aconteça por meio de requisições HTTP.
+
+## Módulo 6 - SOLID p.2 | Event-Driven Architecture - ❌
+
+## Módulo 7 - ORM + Repository | ACL + Gateway | CQRS | Mediator & Observer Patterns - ⌛
 
 ## Módulo 8 - Front-end w/ TDD, Clean Architecture & Design Patterns - ⌛
 
