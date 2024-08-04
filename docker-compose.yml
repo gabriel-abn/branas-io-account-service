@@ -1,0 +1,8 @@
+services:
+  postgres:
+    image: postgres:14
+    environment:
+      POSTGRES_PASSWORD: 123456
+      POSTGRES_DB: app
+    volumes:
+      - ./create.sql:/docker-entrypoint-initdb.d/init.sql
