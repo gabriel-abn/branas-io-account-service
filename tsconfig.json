@@ -28,13 +28,4 @@
     "outDir": "dist",
     "removeComments": false,
   },
-  "include": [
-    "src/**/*.ts",
-  ],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "tests",
-    "vitest.config.ts",
-  ]
 }
