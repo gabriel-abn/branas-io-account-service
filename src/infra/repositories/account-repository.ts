@@ -1,5 +1,5 @@
-import type { IAccountRepository } from "src/application/protocols/account-repository";
-import { Account } from "src/domain/account";
+import type { IAccountRepository } from "@/application/protocols/account-repository";
+import { Account } from "@/domain/account";
 import Postgres from "../database/postgres";
 
 export default class UserRepository implements IAccountRepository {

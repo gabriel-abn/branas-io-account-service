@@ -1,5 +1,5 @@
+import type { ITokenizer } from "@/application/protocols";
 import { decode, sign } from "jsonwebtoken";
-import type { ITokenizer } from "src/application/protocols";
 
 export class JWTAdaper implements ITokenizer {
   constructor(private readonly secret: string = "secret") {}

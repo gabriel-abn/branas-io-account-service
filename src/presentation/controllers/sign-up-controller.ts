@@ -1,5 +1,5 @@
-import type SignUp from "src/application/services/signup";
-import { validateCpf } from "src/utils/user-data-validation";
+import type SignUp from "@/application/services/signup";
+import { validateCpf } from "@/utils/user-data-validation";
 import z from "zod";
 import Controller from "../common/controller";
 import type { HttpRequest } from "../common/http";

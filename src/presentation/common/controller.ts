@@ -1,6 +1,6 @@
-import ApplicationError from "src/application/common/application-error";
+import ApplicationError from "@/application/common/application-error";
+import type { HttpRequest, HttpResponse } from "@/presentation/common/http";
 import type { SafeParseError, z } from "zod";
-import type { HttpRequest, HttpResponse } from "./http";
 
 export default abstract class Controller<T> {
   abstract run(request: HttpRequest<T>): Promise<any>;

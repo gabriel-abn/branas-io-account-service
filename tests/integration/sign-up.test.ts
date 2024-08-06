@@ -1,7 +1,7 @@
+import type { AccountProps } from "@/domain/account";
+import server from "@/main/app/app";
 import { faker } from "@faker-js/faker";
 import RandExp from "randexp";
-import type { AccountProps } from "src/domain/account";
-import server from "src/main/app/app";
 import request from "supertest";
 
 describe("SignUp", () => {

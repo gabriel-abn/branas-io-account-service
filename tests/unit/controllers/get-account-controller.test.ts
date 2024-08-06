@@ -1,9 +1,9 @@
+import GetAccountFactory from "@/main/factories/get-account-factory";
+import SignUpFactory from "@/main/factories/sign-up-factory";
+import type { HttpRequest } from "@/presentation/common/http";
+import type { SignUpRequest } from "@/presentation/controllers/sign-up-controller";
 import { faker } from "@faker-js/faker";
 import RandExp from "randexp";
-import GetAccountFactory from "src/main/factories/get-account-factory";
-import SignUpFactory from "src/main/factories/sign-up-factory";
-import type { HttpRequest } from "src/presentation/common/http";
-import type { SignUpRequest } from "src/presentation/controllers/sign-up-controller";
 
 describe("GetAccountController", () => {
   const signUp = SignUpFactory.makeController();

@@ -1,4 +1,4 @@
-import type Login from "src/application/services/login";
+import type Login from "@/application/services/login";
 import { z } from "zod";
 import Controller from "../common/controller";
 import type { HttpRequest } from "../common/http";

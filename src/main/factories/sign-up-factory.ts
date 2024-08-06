@@ -1,7 +1,7 @@
-import SignUp from "src/application/services/signup";
-import UserRepository from "src/infra/repositories/account-repository";
-import PasswordHasher from "src/infra/security/hasher";
-import SignUpController from "src/presentation/controllers/sign-up-controller";
+import SignUp from "@/application/services/signup";
+import UserRepository from "@/infra/repositories/account-repository";
+import PasswordHasher from "@/infra/security/hasher";
+import SignUpController from "@/presentation/controllers/sign-up-controller";
 
 export default class SignUpFactory {
   static makeUseCase(): SignUp {

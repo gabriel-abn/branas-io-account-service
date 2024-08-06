@@ -1,5 +1,5 @@
+import accountRouter from "@/main/app/routes";
 import express from "express";
-import accountRouter from "./routes";
 
 const server = express();
 server.use(express.json());

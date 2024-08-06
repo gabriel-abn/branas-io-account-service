@@ -1,5 +1,5 @@
+import { Account } from "@/domain/account";
 import crypto from "crypto";
-import { Account } from "src/domain/account";
 import ApplicationError from "../common/application-error";
 import type UseCase from "../common/use-case";
 import type { IAccountRepository, IPasswordHasher } from "../protocols";

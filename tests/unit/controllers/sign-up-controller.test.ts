@@ -1,7 +1,7 @@
+import type { AccountProps } from "@/domain/account";
+import SignUpFactory from "@/main/factories/sign-up-factory";
 import { faker } from "@faker-js/faker";
 import RandExp from "randexp";
-import type { AccountProps } from "src/domain/account";
-import SignUpFactory from "src/main/factories/sign-up-factory";
 
 describe("SignUpController", () => {
   const signUp = SignUpFactory.makeController();

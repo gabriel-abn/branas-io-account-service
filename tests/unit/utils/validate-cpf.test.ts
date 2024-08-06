@@ -1,4 +1,4 @@
-import { validateCpf } from "src/utils/user-data-validation";
+import { validateCpf } from "@/utils/user-data-validation";
 
 test.each(["97456321558", "71428793860", "87748248800"])(
   "Deve testar se o cpf é válido %s",

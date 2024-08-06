@@ -1,6 +1,6 @@
+import type Controller from "@/presentation/common/controller";
+import type { HttpRequest } from "@/presentation/common/http";
 import type { Request, Response } from "express";
-import type Controller from "src/presentation/common/controller";
-import type { HttpRequest } from "src/presentation/common/http";
 
 const expressRouteAdapter = (controller: Controller<any>) => {
   return async (request: Request, response: Response) => {

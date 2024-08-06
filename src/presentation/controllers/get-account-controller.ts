@@ -1,4 +1,4 @@
-import type GetAccount from "src/application/services/get-account";
+import type GetAccount from "@/application/services/get-account";
 import Controller from "../common/controller";
 import type { HttpRequest } from "../common/http";
 

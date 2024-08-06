@@ -1,8 +1,8 @@
-import Login from "src/application/services/login";
-import UserRepository from "src/infra/repositories/account-repository";
-import PasswordHasher from "src/infra/security/hasher";
-import { JWTAdaper } from "src/infra/security/tokenizer";
-import LoginController from "src/presentation/controllers/login-controller";
+import Login from "@/application/services/login";
+import UserRepository from "@/infra/repositories/account-repository";
+import PasswordHasher from "@/infra/security/hasher";
+import { JWTAdaper } from "@/infra/security/tokenizer";
+import LoginController from "@/presentation/controllers/login-controller";
 
 export default class LoginFactory {
   static makeUseCase(): Login {

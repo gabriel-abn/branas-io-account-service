@@ -1,7 +1,7 @@
+import server from "@/main/app/app";
+import type { SignUpRequest } from "@/presentation/controllers/sign-up-controller";
 import { faker } from "@faker-js/faker";
 import RandExp from "randexp";
-import server from "src/main/app/app";
-import type { SignUpRequest } from "src/presentation/controllers/sign-up-controller";
 import request from "supertest";
 
 describe("Login", () => {
