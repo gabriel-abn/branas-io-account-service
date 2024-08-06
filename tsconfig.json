@@ -2,21 +2,22 @@
   "compilerOptions": {
     "lib": [
       "ESNext",
-      "DOM"
+      "DOM",
     ],
-    "target": "ESNext",
-    "module": "ESNext",
+    "target": "ES2022",
+    "module": "ES2022",
     "moduleResolution": "Node",
     "moduleDetection": "force",
     "esModuleInterop": true,
+    "sourceMap": true,
     "allowJs": true,
     "jsx": "react-jsx",
     "verbatimModuleSyntax": false,
     "baseUrl": ".",
     "rootDir": "./src",
     "paths": {
-      "src/*": [
-        "src/*"
+      "@/*": [
+        "./src/*"
       ]
     },
     "forceConsistentCasingInFileNames": true,
@@ -28,4 +29,11 @@
     "outDir": "dist",
     "removeComments": false,
   },
+  "include": [
+    "src/**/*.ts",
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }
