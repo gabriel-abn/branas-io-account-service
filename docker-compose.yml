@@ -6,3 +6,9 @@ services:
       POSTGRES_DB: app
     volumes:
       - ./create.sql:/docker-entrypoint-initdb.d/init.sql
+  app:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - postgres
