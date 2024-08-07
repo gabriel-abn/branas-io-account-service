@@ -6,7 +6,7 @@ import type { HttpRequest } from "../common/http";
 
 const schema = z.object({
   name: z.custom<string>(
-    (value) => {
+    (value: any) => {
       if (typeof value !== "string") return false;
 
       const name = value
@@ -34,7 +34,7 @@ const schema = z.object({
     .min(8, "Password must have at least 8 characters.")
     .max(24, "Password must have at most 24 characters."),
   cpf: z.custom<string>(
-    (value) => typeof value === "string" && validateCpf(value),
+    (value: any) => typeof value === "string" && validateCpf(value),
     {
       message: "Invalid CPF.",
     },

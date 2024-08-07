@@ -1,18 +1,19 @@
-FROM node:20-alpine
-
-# Create app directory
+FROM node:20-slim AS base
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN corepack enable
+COPY . /app
 WORKDIR /app
 
-# Install app dependencies
-COPY package.json pnpm-lock.yaml ./
+FROM base AS prod-deps
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --prod --frozen-lockfile
 
-RUN npm install -g pnpm
+FROM base AS build
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
+RUN pnpm run build
 
-RUN pnpm install
-
-# Bundle app source
-COPY . .
-
+FROM base
+COPY --from=prod-deps /app/node_modules /app/node_modules
+COPY --from=build /app/dist /app/dist
 EXPOSE 3000
-
-CMD [ "pnpm", "dev" ]
+CMD [ "pnpm", "start" ]
