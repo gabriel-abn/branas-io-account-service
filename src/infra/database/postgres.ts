@@ -5,7 +5,10 @@ export default class Postgres {
   private static instance: Postgres;
 
   private constructor() {
-    this.connection = pgp()("postgres://postgres:123456@localhost:5432/app");
+    const databaseUrl = process.env.DATABASE_URL ? 
+      process.env.DATABASE_URL : 
+      "postgres://postgres:123456@localhost:5432/app";
+    this.connection = pgp()(databaseUrl);
   }
 
   async query(sql: string, values: any[]) {
