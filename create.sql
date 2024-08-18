@@ -1,6 +1,4 @@
-DROP SCHEMA IF EXISTS app cascade;
-
-CREATE SCHEMA app;
+CREATE SCHEMA IF NOT EXISTS app;
 
 CREATE TABLE app.account (
 	account_id VARCHAR(255) PRIMARY KEY,
