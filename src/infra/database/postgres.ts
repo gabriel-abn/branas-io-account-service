@@ -7,7 +7,7 @@ export default class Postgres {
   private constructor() {
     const databaseUrl = process.env.DATABASE_URL ? 
       process.env.DATABASE_URL : 
-      "postgres://postgres:123456@localhost:5432/app";
+      "postgres://postgres:123456@localhost:5432/account";
     this.connection = pgp()(databaseUrl);
   }
 
